@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "osu-route"
+name = "osuroute"
 version = "0.1.0"
 description = "budget osu!direct"
 authors = ["faith <jamienibtong@gmail.com>"]
@@ -7,10 +7,13 @@ license = "GPLv2"
 
 [tool.poetry.dependencies]
 python = ">=3.9, <3.10"
-PySide6 = "^6.0.3"
 requests = "^2.25.1"
+psutil = "^5.8.0"
 
 [tool.poetry.dev-dependencies]
+
+[tool.poetry.scripts]
+osuroute = "osuroute.cli:main"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
