@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "osuroute"
-version = "0.1.0"
-description = "budget osu!direct"
+version = "0.2.0"
+description = "budget osu!direct. set this as your default browser, but that's all I'll give you"
 authors = ["faith <jamienibtong@gmail.com>"]
 license = "GPLv2"
 
