@@ -29,7 +29,7 @@ var SetId string
 func LoadConfig() {
 	var HomeDir string
 	if runtime.GOOS != "windows" {
-		HomeDir = os.Getenv("HOME")
+		HomeDir = path.Join(os.Getenv("HOME"), ".config/osuroute/")
 	} else {
 		HomeDir = os.Getenv("%LOCALAPPDATA%")
 	}
