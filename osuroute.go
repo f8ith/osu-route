@@ -27,7 +27,7 @@ var config Config
 var SetId string
 
 func LoadConfig() {
-	var HomeDir
+	var HomeDir string
 	if runtime.GOOS != "windows" {
 		HomeDir = os.Getenv("HOME")
 	} else {
