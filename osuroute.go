@@ -59,10 +59,10 @@ func main() {
 	OsuDir := config.OsuDir
 	BrowserPath := config.BrowserPath
 	Osu := config.Osu
-	url := os.Args[1]
 	if len(os.Args) <= 1 {
 		return
 	}
+	url := os.Args[1]
 	if OsuRunning() {
 		if strings.HasPrefix(url, "https://osu.ppy.sh/b/") || strings.HasPrefix(
 			url, "https://osu.ppy.sh/beatmaps/") {
