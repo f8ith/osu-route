@@ -47,7 +47,7 @@ func OsuRunning() bool {
 	processes, _ := process.Processes()
 	for _, p := range processes {
 		ProcessName, _ := p.Name()
-		if ProcessName == "Osu!.exe" {
+		if ProcessName == "osu!.exe" {
 			return true
 		}
 	}
