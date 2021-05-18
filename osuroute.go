@@ -1,7 +1,6 @@
 package main
 
 import (
-	"runtime"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -11,9 +10,15 @@ import (
 	"os"
 	"os/exec"
 	"path"
+	"runtime"
 	"strings"
 
 	"github.com/shirou/gopsutil/v3/process"
+
+	"fyne.io/fyne/v2"
+	"fyne.io/fyne/v2/app"
+	"fyne.io/fyne/v2/container"
+	"fyne.io/fyne/v2/widget"
 )
 
 type Config struct {
@@ -26,14 +31,15 @@ var config Config
 
 var SetId string
 
+var HomeDir string
+
+var ConfigPath string
+
 func LoadConfig() {
-	var HomeDir string
-	if runtime.GOOS != "windows" {
-		HomeDir = path.Join(os.Getenv("HOME"), ".config/osuroute/")
-	} else {
-		HomeDir = os.Getenv("%LOCALAPPDATA%")
-	}
-	ConfigData, err := ioutil.ReadFile(path.Join(HomeDir, "osuroute.json"))
+	HomeDir, _ = os.UserHomeDir()
+	ConfigPath = path.Join(HomeDir, "osuroute.json")
+
+	ConfigData, err := ioutil.ReadFile(ConfigPath)
 	if err != nil {
 		log.Fatal("loadConfig:", err.Error())
 	}
@@ -60,6 +66,34 @@ func main() {
 	BrowserPath := config.BrowserPath
 	Osu := config.Osu
 	if len(os.Args) <= 1 {
+		a := app.New()
+		w := a.NewWindow("osuRoute!")
+
+		entry1 := widget.NewEntry()
+		entry1.Text = config.OsuDir
+		entry2 := widget.NewEntry()
+		entry2.Text = config.BrowserPath
+		entry3 := widget.NewEntry()
+		entry3.Text = config.Osu
+
+		form := &widget.Form{
+			Items: []*widget.FormItem{ // we can specify items in the constructor
+				{Text: "Osu Directory", Widget: entry1},
+				{Text: "Browser Path", Widget: entry2},
+				{Text: "Osu App Path", Widget: entry3}},
+			OnSubmit: func() { // optional, handle form submission
+				config.OsuDir = entry1.Text
+				config.BrowserPath = entry2.Text
+				config.Osu = entry3.Text
+				newConfig, _ := json.MarshalIndent(config, "", " ")
+				ioutil.WriteFile(ConfigPath, newConfig, 0644)
+				w.Close()
+			},
+			SubmitText: "Save",
+		}
+		w.SetContent(container.NewVBox(form))
+		w.Resize(fyne.NewSize(450, 100))
+		w.ShowAndRun()
 		return
 	}
 	url := os.Args[1]
