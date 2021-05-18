@@ -1,0 +1,21 @@
+# github.com/StackExchange/wmi v0.0.0-20190523213315-cbe66965904d
+github.com/StackExchange/wmi
+# github.com/go-ole/go-ole v1.2.4
+github.com/go-ole/go-ole
+github.com/go-ole/go-ole/oleutil
+# github.com/shirou/gopsutil/v3 v3.21.4
+## explicit
+github.com/shirou/gopsutil/v3/cpu
+github.com/shirou/gopsutil/v3/internal/common
+github.com/shirou/gopsutil/v3/mem
+github.com/shirou/gopsutil/v3/net
+github.com/shirou/gopsutil/v3/process
+# github.com/tklauser/go-sysconf v0.3.4
+github.com/tklauser/go-sysconf
+# github.com/tklauser/numcpus v0.2.1
+github.com/tklauser/numcpus
+# golang.org/x/sys v0.0.0-20210330210617-4fbd30eecc44
+## explicit
+golang.org/x/sys/internal/unsafeheader
+golang.org/x/sys/unix
+golang.org/x/sys/windows
