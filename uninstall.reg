@@ -1,0 +1,19 @@
+Windows Registry Editor Version 5.00
+
+; Infamous capabilities:
+
+[-HKEY_LOCAL_MACHINE\SOFTWARE\OsuRoute\Capabilities]
+
+[-HKEY_LOCAL_MACHINE\SOFTWARE\OsuRoute\Capabilities\FileAssociations]
+
+[-HKEY_LOCAL_MACHINE\SOFTWARE\OsuRoute\Capabilities\URLAssociations]
+
+[-HKEY_LOCAL_MACHINE\SOFTWARE\RegisteredApplications]
+
+[-HKEY_LOCAL_MACHINE\Software\Classes\OsuRouteURL]
+
+[-HKEY_LOCAL_MACHINE\Software\Classes\OsuRouteURL\shell]
+
+[-HKEY_LOCAL_MACHINE\Software\Classes\OsuRouteURL\shell\open]
+
+[-HKEY_LOCAL_MACHINE\Software\Classes\OsuRouteURL\shell\open\command]

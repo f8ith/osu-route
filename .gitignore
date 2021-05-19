@@ -1,2 +1,3 @@
 *.osz
 osuroute
+build/*

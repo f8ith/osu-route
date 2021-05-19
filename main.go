@@ -4,13 +4,10 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
-	"os/exec"
 	"path"
-	"runtime"
 	"strings"
 
 	"github.com/shirou/gopsutil/v3/process"
@@ -31,17 +28,22 @@ var config Config
 
 var SetId string
 
-var HomeDir string
+var UserConfigDir, _ = os.UserConfigDir()
 
-var ConfigPath string
+var ConfigDir string = path.Join(UserConfigDir, "osuroute")
+
+var ConfigFile string = path.Join(ConfigDir, "osuroute.json")
 
 func LoadConfig() {
-	HomeDir, _ = os.UserHomeDir()
-	ConfigPath = path.Join(HomeDir, "osuroute.json")
-
-	ConfigData, err := ioutil.ReadFile(ConfigPath)
+	_ = os.MkdirAll(ConfigDir, 777)
+	if _, err := os.Stat(ConfigFile); os.IsNotExist(err) {
+		f, _ := os.Create(ConfigFile)
+		defer f.Close()
+		f.WriteString("{}")
+	}
+	ConfigData, err := os.ReadFile(ConfigFile)
 	if err != nil {
-		log.Fatal("loadConfig:", err.Error())
+		log.Fatal("Read file:", err.Error())
 	}
 	err = json.Unmarshal(ConfigData, &config)
 	if err != nil {
@@ -86,7 +88,7 @@ func main() {
 				config.BrowserPath = entry2.Text
 				config.Osu = entry3.Text
 				newConfig, _ := json.MarshalIndent(config, "", " ")
-				ioutil.WriteFile(ConfigPath, newConfig, 0644)
+				os.WriteFile(ConfigFile, newConfig, 0644)
 				w.Close()
 			},
 			SubmitText: "Save",
@@ -120,10 +122,7 @@ func main() {
 		} else if strings.HasPrefix(url, "https://osu.ppy.sh/beatmapsets/") {
 			SetId = strings.Split(url, "/")[4]
 		} else {
-			err := exec.Command(BrowserPath, url).Run()
-			if err != nil {
-				log.Fatal(err)
-			}
+			run(BrowserPath, url)
 			return
 		}
 		r, err := http.Get(fmt.Sprintf("https://api.chimu.moe/v1/download/%v?n=0", SetId))
@@ -140,14 +139,9 @@ func main() {
 		}
 		defer f.Close()
 		io.Copy(f, r.Body)
-		err = exec.Command(Osu, filepath).Run()
-		if err != nil {
-			log.Fatal(err)
-		}
-	}
-	err := exec.Command(BrowserPath, url).Run()
-	if err != nil {
-		log.Fatal(err)
+		run(Osu, filepath)
+	} else {
+		run(BrowserPath, url)
 	}
 	return
 }

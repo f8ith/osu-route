@@ -1,0 +1,32 @@
+Windows Registry Editor Version 5.00
+
+; Infamous capabilities:
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\OsuRoute\Capabilities]
+"ApplicationDescription"="OsuRoute"
+"ApplicationIcon"="C:\\Program Files\\OsuRoute\\OsuRoute.exe,0"
+"ApplicationName"="OsuRoute"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\OsuRoute\Capabilities\FileAssociations]
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\OsuRoute\Capabilities\URLAssociations]
+"http"="OsuRouteURL"
+"https"="OsuRouteURL"
+
+; Register to Default Programs
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\RegisteredApplications]
+"OsuRoute"="Software\\OsuRoute\\Capabilities"
+
+; OsuRouteURL HANDLER:
+
+[HKEY_LOCAL_MACHINE\Software\Classes\OsuRouteURL]
+@="OsuRoute Document"
+"FriendlyTypeName"="OsuRoute Document"
+
+[HKEY_LOCAL_MACHINE\Software\Classes\OsuRouteURL\shell]
+
+[HKEY_LOCAL_MACHINE\Software\Classes\OsuRouteURL\shell\open]
+
+[HKEY_LOCAL_MACHINE\Software\Classes\OsuRouteURL\shell\open\command]
+@="\"C:\\Program Files\\OsuRoute\\OsuRoute.exe\" \"%1\""
