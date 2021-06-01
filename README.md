@@ -1,7 +1,7 @@
 # osu-route
 budget osu!direct
 
-## install
+## Install
 
 ### Windows users
 
